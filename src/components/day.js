@@ -7,6 +7,33 @@ const api = {
   base: " https://api.openweathermap.org/data/2.5/",
 };
 
+async function getForecast(title) {
+  const req = await fetch(
+    `${api.base}forecast?q=${title}&units=metric&APPID=${api.key}`
+  );
+
+  const res = await req.json();
+ return {
+    activeCity: res.city.name,
+    activeWeather1: res.list[1].main.temp,
+    activeWeather2: res.list[9].main.temp,
+    activeWeather3: res.list[17].main.temp,
+    activeWeather4: res.list[25].main.temp,
+    activeWeather5: res.list[33].main.temp,
+
+    activeDesc1: res.list[1].weather[0].main,
+    activeDesc2: res.list[9].weather[0].main,
+    activeDesc3: res.list[17].weather[0].main,
+    activeDesc4: res.list[25].weather[0].main,
+    activeDesc5: res.list[33].weather[0].main,
+    icon1: res.list[0].weather[0].icon,
+    icon2: res.list[9].weather[0].icon,
+    icon3: res.list[17].weather[0].icon,
+    icon4: res.list[25].weather[0].icon,
+    icon5: res.list[33].weather[0].icon,
+  }
+}
+
 class Day extends React.Component {
   state = {
     activeCity: [],
@@ -18,31 +45,10 @@ class Day extends React.Component {
 
   componentDidMount = async () => {
     const title = this.props.location.state.weather;
-    const req = await fetch(
-      `${api.base}forecast?q=${title}&units=metric&APPID=${api.key}`
-    );
+    
+    const result = await getForecast(title);
 
-    const res = await req.json();
-    this.setState({
-      activeCity: res.city.name,
-      activeWeather1: res.list[1].main.temp,
-      activeWeather2: res.list[9].main.temp,
-      activeWeather3: res.list[17].main.temp,
-      activeWeather4: res.list[25].main.temp,
-      activeWeather5: res.list[33].main.temp,
-
-      activeDesc1: res.list[1].weather[0].main,
-      activeDesc2: res.list[9].weather[0].main,
-      activeDesc3: res.list[17].weather[0].main,
-      activeDesc4: res.list[25].weather[0].main,
-      activeDesc5: res.list[33].weather[0].main,
-      icon1: res.list[0].weather[0].icon,
-      icon2: res.list[9].weather[0].icon,
-      icon3: res.list[17].weather[0].icon,
-      icon4: res.list[25].weather[0].icon,
-      icon5: res.list[33].weather[0].icon,
-    });
-    console.log(this.state);
+    this.setState(result)
   };
   render() {
     const today = new Date();
