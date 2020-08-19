@@ -39,7 +39,15 @@ class Day extends React.Component {
   };
   componentDidMount = async () => {
     const title = this.props.location.state.weather;
-    this.setState();
+    getForecast(title).then((values)=>{
+      console.log(values)
+      this.setState({
+        activeCity:values.activeCity,
+        activeWeather:[values.activeWeather1,values.activeWeather2,values.activeWeather3,values.activeWeather4,values.activeWeather5],
+        sysName: [values.activeDesc1,values.activeDesc2,values.activeDesc3,values.activeDesc4,values.activeDesc5],
+        icon:[values.icon1,values.icon2,values.icon3,values.icon4,values.icon5]
+      })
+    })
     console.log(this.state);
   };
   render() {
@@ -82,55 +90,55 @@ class Day extends React.Component {
             <div className="weather-box">
               <div className="date">{dateBuilder(today)}</div>
               <div className="temp">
-                {Math.round(this.state.activeWeather1)} ‎°C{" "}
+                {Math.round(this.state.activeWeather[0])} ‎°C{" "}
               </div>
-              <div className="weather">{this.state.activeDesc1} </div>
+              <div className="weather">{this.state.sysName[0]} </div>
               <img
-                src={`http://openweathermap.org/img/wn/${this.state.icon1}.png`}
+                src={`http://openweathermap.org/img/wn/${this.state.icon[0]}.png`}
               />
             </div>
             <div className="location-box"></div>
             <div className="weather-box">
               <div className="date">{dateBuilder(tomorrow)}</div>
               <div className="temp">
-                {Math.round(this.state.activeWeather2)} ‎°C{" "}
+                {Math.round(this.state.activeWeather[1])} ‎°C{" "}
               </div>
-              <div className="weather">{this.state.activeDesc2} </div>
+              <div className="weather">{this.state.sysName[1]} </div>
               <img
-                src={`http://openweathermap.org/img/wn/${this.state.icon2}.png`}
+                src={`http://openweathermap.org/img/wn/${this.state.icon[1]}.png`}
               />
             </div>
             <div className="location-box"></div>
             <div className="weather-box">
               <div className="date">{dateBuilder(thirdDay)}</div>
               <div className="temp">
-                {Math.round(this.state.activeWeather3)} ‎°C{" "}
+                {Math.round(this.state.activeWeather[2])} ‎°C{" "}
               </div>
-              <div className="weather">{this.state.activeDesc3} </div>
+              <div className="weather">{this.state.sysName[2]} </div>
               <img
-                src={`http://openweathermap.org/img/wn/${this.state.icon3}.png`}
+                src={`http://openweathermap.org/img/wn/${this.state.icon[2]}.png`}
               />
             </div>
             <div className="location-box"></div>
             <div className="weather-box">
               <div className="date">{dateBuilder(forthDay)}</div>
               <div className="temp">
-                {Math.round(this.state.activeWeather4)} ‎°C{" "}
+                {Math.round(this.state.activeWeather[3])} ‎°C{" "}
               </div>
-              <div className="weather">{this.state.activeDesc4} </div>
+              <div className="weather">{this.state.sysName[3]} </div>
               <img
-                src={`http://openweathermap.org/img/wn/${this.state.icon4}.png`}
+                src={`http://openweathermap.org/img/wn/${this.state.icon[3]}.png`}
               />
             </div>
             <div className="location-box"></div>
             <div className="weather-box">
               <div className="date">{dateBuilder(fifthDay)}</div>
               <div className="temp">
-                {Math.round(this.state.activeWeather5)} ‎°C{" "}
+                {Math.round(this.state.activeWeather[4])} ‎°C{" "}
               </div>
-              <div className="weather">{this.state.activeDesc5} </div>
+              <div className="weather">{this.state.sysName[4]} </div>
               <img
-                src={`http://openweathermap.org/img/wn/${this.state.icon5}.png`}
+                src={`http://openweathermap.org/img/wn/${this.state.icon[4]}.png`}
               />
             </div>
           </div>
