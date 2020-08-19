@@ -132,23 +132,27 @@ class Day extends React.Component {
               <img
                 src={`http://openweathermap.org/img/wn/${this.state.icon5}.png`}
               />
-              <div className="weather-box">
+            </div>
+            <div className="location-box"></div>
+            <div className="weather-box">
               <div className="date">{dateBuilder(fifthDay)}</div>
               <div className="temp">
-                {Math.round(this.state.activeWeather[4])} ‎°C{" "}
+                {Math.round(this.state.activeWeather5)} ‎°C{" "}
               </div>
-              <div className="weather">{this.state.sysName[4]} </div>
+              <div className="weather">{this.state.activeDesc5} </div>
               <img
-                src={`http://openweathermap.org/img/wn/${this.state.icon[4]}.png`}
+                src={`http://openweathermap.org/img/wn/${this.state.icon5}.png`}
               />
-              <div className="weather-box">
+            </div>
+            <div className="location-box"></div>
+            <div className="weather-box">
               <div className="date">{dateBuilder(fifthDay)}</div>
               <div className="temp">
-                {Math.round(this.state.activeWeather[4])} ‎°C{" "}
+                {Math.round(this.state.activeWeather5)} ‎°C{" "}
               </div>
-              <div className="weather">{this.state.sysName[4]} </div>
+              <div className="weather">{this.state.activeDesc5} </div>
               <img
-                src={`http://openweathermap.org/img/wn/${this.state.icon[4]}.png`}
+                src={`http://openweathermap.org/img/wn/${this.state.icon5}.png`}
               />
             </div>
           </div>
