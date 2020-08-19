@@ -1,12 +1,34 @@
 import React from "react";
 import "./test";
 import "./city";
-
 const api = {
   key: "c919f4253df7ee10be22377a10066ac1",
   base: " https://api.openweathermap.org/data/2.5/",
 };
-
+async function getForecast(title) {
+  const req = await fetch(
+    `${api.base}forecast?q=${title}&units=metric&APPID=${api.key}`
+  );
+  const res = await req.json();
+  return {
+    activeCity: res.city.name,
+    activeWeather1: res.list[1].main.temp,
+    activeWeather2: res.list[9].main.temp,
+    activeWeather3: res.list[17].main.temp,
+    activeWeather4: res.list[25].main.temp,
+    activeWeather5: res.list[33].main.temp,
+    activeDesc1: res.list[1].weather[0].main,
+    activeDesc2: res.list[9].weather[0].main,
+    activeDesc3: res.list[17].weather[0].main,
+    activeDesc4: res.list[25].weather[0].main,
+    activeDesc5: res.list[33].weather[0].main,
+    icon1: res.list[0].weather[0].icon,
+    icon2: res.list[9].weather[0].icon,
+    icon3: res.list[17].weather[0].icon,
+    icon4: res.list[25].weather[0].icon,
+    icon5: res.list[33].weather[0].icon,
+  }
+}
 class Day extends React.Component {
   state = {
     activeCity: [],
@@ -15,33 +37,9 @@ class Day extends React.Component {
     sysName: [],
     icon: "",
   };
-
   componentDidMount = async () => {
     const title = this.props.location.state.weather;
-    const req = await fetch(
-      `${api.base}forecast?q=${title}&units=metric&APPID=${api.key}`
-    );
-
-    const res = await req.json();
-    this.setState({
-      activeCity: res.city.name,
-      activeWeather1: res.list[1].main.temp,
-      activeWeather2: res.list[9].main.temp,
-      activeWeather3: res.list[17].main.temp,
-      activeWeather4: res.list[25].main.temp,
-      activeWeather5: res.list[33].main.temp,
-
-      activeDesc1: res.list[1].weather[0].main,
-      activeDesc2: res.list[9].weather[0].main,
-      activeDesc3: res.list[17].weather[0].main,
-      activeDesc4: res.list[25].weather[0].main,
-      activeDesc5: res.list[33].weather[0].main,
-      icon1: res.list[0].weather[0].icon,
-      icon2: res.list[9].weather[0].icon,
-      icon3: res.list[17].weather[0].icon,
-      icon4: res.list[25].weather[0].icon,
-      icon5: res.list[33].weather[0].icon,
-    });
+    this.setState();
     console.log(this.state);
   };
   render() {
@@ -64,12 +62,9 @@ class Day extends React.Component {
         "Friday",
         "Saturday",
       ];
-
       let day = days[d.getDay()];
-
       return `${day} `;
     };
-
     return (
       <div
         className={
@@ -82,10 +77,8 @@ class Day extends React.Component {
       >
         <main>
           <div className="location"> {this.state.activeCity}</div>
-
           <div className="container">
             <div className="location-box"></div>
-
             <div className="weather-box">
               <div className="date">{dateBuilder(today)}</div>
               <div className="temp">
@@ -96,7 +89,6 @@ class Day extends React.Component {
                 src={`http://openweathermap.org/img/wn/${this.state.icon1}.png`}
               />
             </div>
-
             <div className="location-box"></div>
             <div className="weather-box">
               <div className="date">{dateBuilder(tomorrow)}</div>
@@ -119,7 +111,6 @@ class Day extends React.Component {
                 src={`http://openweathermap.org/img/wn/${this.state.icon3}.png`}
               />
             </div>
-
             <div className="location-box"></div>
             <div className="weather-box">
               <div className="date">{dateBuilder(forthDay)}</div>
@@ -148,5 +139,4 @@ class Day extends React.Component {
     );
   }
 }
-
 export default Day;
