@@ -21,26 +21,26 @@ class Day extends React.Component {
     const req = await fetch(
       `${api.base}forecast?q=${title}&units=metric&APPID=${api.key}`
     );
-
     const res = await req.json();
+    const {list, city} = res;
     this.setState({
-      activeCity: res.city.name,
-      activeWeather1: res.list[1].main.temp,
-      activeWeather2: res.list[9].main.temp,
-      activeWeather3: res.list[17].main.temp,
-      activeWeather4: res.list[25].main.temp,
-      activeWeather5: res.list[33].main.temp,
+      activeCity: city.name,
+      activeWeather1: list[1].main.temp,
+      activeWeather2: list[9].main.temp,
+      activeWeather3: list[17].main.temp,
+      activeWeather4: list[25].main.temp,
+      activeWeather5: list[33].main.temp,
 
-      activeDesc1: res.list[1].weather[0].main,
-      activeDesc2: res.list[9].weather[0].main,
-      activeDesc3: res.list[17].weather[0].main,
-      activeDesc4: res.list[25].weather[0].main,
-      activeDesc5: res.list[33].weather[0].main,
-      icon1: res.list[0].weather[0].icon,
-      icon2: res.list[9].weather[0].icon,
-      icon3: res.list[17].weather[0].icon,
-      icon4: res.list[25].weather[0].icon,
-      icon5: res.list[33].weather[0].icon,
+      activeDesc1: list[1].weather[0].main,
+      activeDesc2: list[9].weather[0].main,
+      activeDesc3: list[17].weather[0].main,
+      activeDesc4: list[25].weather[0].main,
+      activeDesc5: list[33].weather[0].main,
+      icon1: list[0].weather[0].icon,
+      icon2: list[9].weather[0].icon,
+      icon3: list[17].weather[0].icon,
+      icon4: list[25].weather[0].icon,
+      icon5: list[33].weather[0].icon,
     });
     console.log(this.state);
   };
