@@ -38,6 +38,7 @@ class Day extends React.Component {
     icon: "",
   };
   componentDidMount = async () => {
+    // did git stash pop due to i had this empty line
     const title = this.props.location.state.weather;
     getForecast(title).then((values)=>{
       console.log(values)
