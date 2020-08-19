@@ -7,21 +7,11 @@ const api = {
   base: " https://api.openweathermap.org/data/2.5/",
 };
 
-class Day extends React.Component {
-  state = {
-    activeCity: [],
-    activeWeather: [],
-    cityName: "",
-    sysName: [],
-    icon: "",
-  };
-
-  componentDidMount = async () => {
-    const title = this.props.location.state.weather;
+async function getForecast(title) {
+  try {
     const req = await fetch(
       `${api.base}forecast?q=${title}&units=metric&APPID=${api.key}`
     );
-
     const { list, city } = await req.json();
     this.setState({
       activeCity: city.name,
@@ -43,7 +33,31 @@ class Day extends React.Component {
       icon5: list[33].weather[0].icon,
     });
     console.log(this.state);
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+class Day extends React.Component {
+  state = {
+    activeCity: [],
+    activeWeather: [],
+    cityName: "",
+    sysName: [],
+    icon: "",
   };
+
+  componentDidMount = async () => {
+    try {
+      const title = this.props.location.state.weather;
+      const result = await getForecast(title);
+
+      this.setState(result);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   render() {
     const today = new Date();
     const tomorrow = new Date(today);
